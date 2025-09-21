@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flores Amarillas — Mi Duo de LoL 🌼</title>
+  <style>
+    :root{
+      --bg1:#fff8e7;
+      --bg2:#fff2b2;
+      --accent:#ffbf00;
+      --card:#ffffffcc;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter, system-ui, Arial, sans-serif;
+      background: linear-gradient(180deg,var(--bg1),var(--bg2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .wrap{
+      width:100%;
+      max-width:900px;
+      border-radius:18px;
+      background:var(--card);
+      box-shadow:0 8px 30px rgba(0,0,0,0.12);
+      padding:28px;
+      text-align:center;
+    }
+    h1{
+      margin:0 0 8px 0;
+      font-size:28px;
+      color:#333;
+      letter-spacing:0.2px;
+    }
+    p.lead{
+      margin:0 0 18px 0;
+      color:#444;
+      font-size:16px;
+    }
+
+    .flowers{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      margin:20px 0;
+      flex-wrap:wrap;
+    }
+    .fl{
+      font-size:64px;
+      transform-origin:center;
+      animation:float 6s ease-in-out infinite;
+      display:inline-block;
+    }
+    .fl:nth-child(2n){ animation-duration:5s; }
+    .fl:nth-child(3n){ animation-duration:7s; }
+    @keyframes float{
+      0%{ transform: translateY(0) rotate(0deg) }
+      50%{ transform: translateY(-12px) rotate(12deg) }
+      100%{ transform: translateY(0) rotate(0deg) }
+    }
+
+    .card{
+      margin:18px auto;
+      padding:18px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+      max-width:680px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+      color:#222;
+    }
+
+    .actions{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    button{
+      border:0;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      background:var(--accent);
+      color:#111;
+    }
+    button.alt{
+      background:transparent;
+      border:2px solid rgba(0,0,0,0.08);
+      color:#333;
+    }
+    small{ display:block; margin-top:10px; color:#666 }
+
+    footer{ margin-top:18px; color:#666; font-size:13px }
+    @media (max-width:520px){
+      h1{ font-size:22px }
+      .fl{ font-size:48px }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🌼 Flores Amarillas para mi duo de LoL</h1>
+    <p class="lead">Gracias por ser mi duo: por las partidas, por los pulls y por las risas. ¡Vamos por más partidas!</p>
+
+    <div class="flowers" aria-hidden="true">
+      <div class="fl">🌼</div>
+      <div class="fl">🌻</div>
+      <div class="fl">🌼</div>
+      <div class="fl">🌻</div>
+      <div class="fl">🌼</div>
+    </div>
+
+    <div class="card">
+      <strong>Título:</strong> Tu duo favorito<br>
+      <small>Puedes usar este link para compartir la página con tu amiga y con otros compañeros.</small>
+
+      <div class="actions">
+        <button id="copyBtn">Copiar enlace</button>
+        <button id="playBtn" class="alt">Reproducir música (opcional)</button>
+      </div>
+
+      <small>Consejo: si quieres añadir una canción, sube un archivo `audio.mp3` al repo y usa la etiqueta <code>&lt;audio controls src="audio.mp3"&gt;</code> (te muestro cómo si quieres).</small>
+    </div>
+
+    <footer>Creada con 🌼 — ¡Que gane tu duo!</footer>
+  </div>
+
+  <script>
+    // Copiar enlace al portapapeles
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      const url = location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        alert('Enlace copiado: ' + url);
+      } catch (e) {
+        // fallback
+        const tmp = document.createElement('input');
+        document.body.appendChild(tmp);
+        tmp.value = url;
+        tmp.select();
+        document.execCommand('copy');
+        tmp.remove();
+        alert('Enlace copiado al portapapeles.');
+      }
+    });
+
+    // Música opcional: navegador puede bloquear autoplay, por eso botón
+    let audio;
+    document.getElementById('playBtn').addEventListener('click', () => {
+      if(!audio){
+        // Si subes audio.mp3 al repo, úsalo aquí:
+        audio = new Audio('audio.mp3'); // si no existe, no hará nada
+      }
+      if(audio && !audio.paused){ audio.pause(); this.textContent = 'Reproducir música (opcional)'; }
+      else if(audio){ audio.play().catch(()=> alert('No se pudo reproducir. Asegúrate de subir audio.mp3 al repo.')); }
+    });
+  </script>
+</body>
+</html>
